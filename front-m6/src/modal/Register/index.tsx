@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -18,13 +18,18 @@ import {
 } from "@chakra-ui/react";
 import { userClienteContext } from "../../context/apiContext";
 
-export const LoginModal: React.FC = () => {
+export const RegisterModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [error, setError] = useState("");
   const [credentials, setCredentials] = useState({
     email: "",
+    nome_completo: "",
     password: "",
+    telefone: "",
   });
-  const [error, setError] = useState("");
+  const { onSubmitRegisterUser } = userClienteContext();
+
 
   const handleCredentialsChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -36,13 +41,30 @@ export const LoginModal: React.FC = () => {
     }));
   };
 
-  const { onSubmitLogin } = userClienteContext();
+
+  const handleRegisterClick = async () => {
+    await onSubmitRegisterUser(credentials as any);
+    onClose();
+    setRegisterSuccess(true);
+    setCredentials({
+      email: "",
+      nome_completo: "",
+      password: "",
+      telefone: "",
+    });
+  };
 
   return (
     <>
       <Flex flexDirection="column" alignItems="center" as="header" h={50}>
-        <Button width={75} colorScheme="teal" border={5} onClick={onOpen}>
-          Login
+        <Button
+          width={75}
+          colorScheme="teal"
+          border={5}
+          onClick={onOpen}
+          marginLeft={5}
+        >
+          Cadastrar
         </Button>
       </Flex>
 
@@ -54,10 +76,20 @@ export const LoginModal: React.FC = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader />
+          <ModalHeader>Register</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <Stack spacing={4}>
+              <FormControl id="nome_completo">
+                <FormLabel>Nome Completo</FormLabel>
+                <Input
+                  type="nome_completo"
+                  name="nome_completo"
+                  value={credentials.nome_completo}
+                  onChange={handleCredentialsChange}
+                  placeholder="Digite seu nome completo"
+                />
+              </FormControl>
               <FormControl id="email">
                 <FormLabel>Email</FormLabel>
                 <Input
@@ -66,6 +98,16 @@ export const LoginModal: React.FC = () => {
                   value={credentials.email}
                   onChange={handleCredentialsChange}
                   placeholder="Digite seu email"
+                />
+              </FormControl>
+              <FormControl id="telefone">
+                <FormLabel>Telefone</FormLabel>
+                <Input
+                  type="telefone"
+                  name="telefone"
+                  value={credentials.telefone}
+                  onChange={handleCredentialsChange}
+                  placeholder="Digite seu telefone"
                 />
               </FormControl>
               <FormControl id="password">
@@ -78,6 +120,7 @@ export const LoginModal: React.FC = () => {
                   placeholder="Digite sua senha"
                 />
               </FormControl>
+
               {error && <Text color="red.500">{error}</Text>}
             </Stack>
           </ModalBody>
@@ -86,9 +129,15 @@ export const LoginModal: React.FC = () => {
             <Button
               colorScheme="blue"
               mr={3}
-              onClick={() => onSubmitLogin(credentials)}
+              onClick={handleRegisterClick}
+              isDisabled={
+                credentials.email === "" ||
+                credentials.nome_completo === "" ||
+                credentials.telefone === "" ||
+                credentials.password === ""
+              }
             >
-              Login
+              Cadastrar
             </Button>
           </ModalFooter>
         </ModalContent>

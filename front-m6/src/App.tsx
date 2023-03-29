@@ -1,18 +1,25 @@
+import { ApiProvider } from "./context/apiContext";
 import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import { LoginModal } from "./modal/Login";
 import { ToastContainer } from "react-toastify";
-import ApiContext from "./context/clienteContext";
 import "react-toastify/dist/ReactToastify.css";
-import LandingPage from "./pages/landingpage";
+import { Browser } from "./Routes/route";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faUser,
+  faPhone,
+  faEnvelope,
+  faEdit,
+} from "@fortawesome/free-solid-svg-icons";
 
 const App: React.FC = () => {
+  library.add(faUser, faPhone, faEnvelope, faEdit);
   return (
     <ChakraProvider>
-      <ApiContext>
-        <LandingPage />
+      <ApiProvider>
+        <Browser />
         <ToastContainer />
-      </ApiContext>
+      </ApiProvider>
     </ChakraProvider>
   );
 };

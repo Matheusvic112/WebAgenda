@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "../pages/landingpage";
-import { LoginModal } from "../modal/Login";
+import { Dashboard } from "../pages/Dashboard";
 
-const Browser = () => {
+export const Browser = () => {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 };
