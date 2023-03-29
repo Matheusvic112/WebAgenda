@@ -2,7 +2,7 @@ import { Box, Image, Flex, Heading, Text } from "@chakra-ui/react";
 import { RegisterModal } from "../../modal/Register";
 import { LoginModal } from "../../modal/Login";
 import { TypingAnimation } from "../../assets/animation";
-
+import homemCelular from "../landingpage/HomemCelular.png"
 export const LandingPage = () => {
  
   return (
@@ -15,7 +15,7 @@ export const LandingPage = () => {
             },
           }}
         >
-          <Image src="src/assets/homemCelular.png" h={450} alt="Dan Abramov" />
+          <Image src={homemCelular} h={450} alt="Dan Abramov" />
         </Box>
 
         <Box

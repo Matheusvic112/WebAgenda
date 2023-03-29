@@ -72,7 +72,7 @@ export function Contatos(props: Props) {
 
   return (
     <>
-      <Heading marginBottom={25}>Lista de contatos</Heading>
+      <Heading marginBottom={25} fontFamily="fantasy">Lista de contatos</Heading>
 
       <Box
         display="flex"
