@@ -61,6 +61,7 @@ export function Contatos(props: Props) {
     setIsModalOpen(true);
   }
 
+  
   function handleCloseModal() {
     setIsModalOpen(false);
   }
