@@ -12,7 +12,6 @@ import {
   sucessoEdit,
   sucessoLogin,
 } from "../toast";
-import { setCookie } from "nookies";
 import { iContact, iUser } from "../interfaces/dashboard";
 
 interface iApiProvider {
@@ -48,10 +47,7 @@ function ApiProvider({ children }: React.PropsWithChildren) {
         navigate("/dashboard");
         setUser(res.data.user);
         sucessoLogin();
-        setCookie(null, "token", res.data.token, {
-          maxAge: 30 * 24 * 60 * 60,
-          path: "/ladingpage",
-        });
+    
       })
       .catch((_) => {
         errorLogin();
