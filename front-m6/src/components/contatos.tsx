@@ -32,8 +32,7 @@ export function Contatos(props: Props) {
   const [redirect, setRedirect] = useState(false);
   const [filteredContacts, setFilteredContacts] = useState<iContact[]>([]);
 
-  const { contacts, setContacts, handleDeleteContato } = userClienteContext();
-  const { setCurrentContact, currentContact, getNew } = userClienteContext();
+  const { contacts, setContacts, handleDeleteContato,setCurrentContact } = userClienteContext();
 
   useEffect(() => {
     async function apiGet() {
@@ -57,8 +56,9 @@ export function Contatos(props: Props) {
     apiGet();
   }, []);
 
-  function handleOpenModal() {
+  function handleOpenModal(contato:iContact) {
     setIsModalOpen(true);
+    setCurrentContact(contato)
   }
 
   
@@ -82,7 +82,7 @@ export function Contatos(props: Props) {
         justifyContent="center"
         alignItems="center"
       >
-        {contacts?.map((contato: any) => (
+        {contacts?.map((contato:iContact) => (
           <Card
             key={contato.id}
             style={{
@@ -130,7 +130,7 @@ export function Contatos(props: Props) {
                 />
                 Excluir
               </Button>
-              <Button onClick={() => handleOpenModal()}>
+              <Button onClick={() => handleOpenModal(contato)}>
                 <FontAwesomeIcon
                   icon={faEdit}
                   style={{ marginRight: "10px", width: "10px" }}
@@ -144,6 +144,7 @@ export function Contatos(props: Props) {
 
       {user && (
         <EditarModal
+          id={''}
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           contato={user}

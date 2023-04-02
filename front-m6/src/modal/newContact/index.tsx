@@ -22,13 +22,13 @@ export function NovoContatoModal({ isOpen, onClose }: IModalProps) {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
-  const { currentContact, getNew } = userClienteContext();
+  const { currentContact, getNew,setContacts } = userClienteContext();
 
   async function handleAddContato(onClose: () => void) {
     try {
       const token = localStorage.getItem("token");
 
-      await api.post(
+await api.post(
         "/contact",
         {
           nome_completo: nomeCompleto,
@@ -41,7 +41,6 @@ export function NovoContatoModal({ isOpen, onClose }: IModalProps) {
           },
         }
       );
-
       setNomeCompleto("");
       setTelefone("");
       setEmail("");

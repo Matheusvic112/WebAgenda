@@ -18,7 +18,7 @@ interface iApiProvider {
   user: iUser | undefined;
   setUser: React.Dispatch<React.SetStateAction<iUser | undefined>>;
   setContacts: React.Dispatch<React.SetStateAction<iContact[]>>;
-  contacts: iContact[] | undefined;
+  contacts: any ;
   navigate: NavigateFunction;
   onSubmitLogin(data: iLogin): Promise<void>;
   onSubmitRegisterUser(data: iRegister): Promise<void>;
@@ -38,7 +38,6 @@ function ApiProvider({ children }: React.PropsWithChildren) {
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
   const [currentContact, setCurrentContact] = useState<iContact>();
-
   async function onSubmitLogin(data: iLogin) {
     await api
       .post("/login", data)

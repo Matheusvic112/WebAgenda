@@ -23,7 +23,6 @@ export function EditarModal({ isOpen, onClose }: EditarModalProps) {
   const [telefone, setTelefone] = useState("");
   const [selectedField, setSelectedField] = useState("");
   const { contacts, currentContact, getNew } = userClienteContext();
-
   async function handleEdit() {
     let body = {};
     const token = localStorage.getItem("token");
@@ -34,9 +33,8 @@ export function EditarModal({ isOpen, onClose }: EditarModalProps) {
     } else if (selectedField === "telefone" && telefone) {
       body = { telefone: telefone };
     }
-
     try {
-      await api.patch(`/contact/${currentContact?.id}`, body, {
+      await api.patch(`/contact/${currentContact?.id}`,body,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -92,7 +90,7 @@ export function EditarModal({ isOpen, onClose }: EditarModalProps) {
               <FormLabel>Telefone</FormLabel>
               <Input
                 onChange={(event) => setTelefone(event.target.value)}
-                placeholder="(99)99999-9999)"
+                placeholder="(99)99999-9999"
               />
             </FormControl>
           )}
@@ -110,3 +108,4 @@ export function EditarModal({ isOpen, onClose }: EditarModalProps) {
     </Modal>
   );
 }
+

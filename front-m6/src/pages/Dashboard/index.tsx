@@ -3,10 +3,9 @@ import {
   Button,
   Flex,
   Heading,
-  Input,
-  InputGroup,
-  InputLeftElement,
+
 } from "@chakra-ui/react";
+
 import { useEffect, useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { Navigate } from "react-router-dom";
@@ -17,11 +16,13 @@ import { NovoContatoModal } from "../../modal/newContact";
 import { api } from "../../services/request";
 
 export const Dashboard = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState<iUser>({} as iUser);
   const [redirect, setRedirect] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [editedClient, setEditedClient] = useState(null);
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -49,7 +50,10 @@ export const Dashboard = () => {
   const onCloseModal = () => {
     setIsOpen(false);
   };
-
+  const handleOpenEditModal = (client:any) => {
+    setIsOpenEditModal(true);
+    setEditedClient(client);
+  };
 
   if (redirect) {
     return <Navigate to="/" />;
@@ -100,12 +104,17 @@ export const Dashboard = () => {
               <Box>
                 <p>E-mail: {user.email}</p>
                 <p>Telefone: {user.telefone}</p>
+                <Button onClick={() => handleOpenEditModal(user)}>Editar</Button>
+          
               </Box>
               <Contatos />
             </Flex>
           </>
         )}
+        
+
       </Box>
-    </Box>
+        
+</Box>
   );
 };

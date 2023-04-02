@@ -32,6 +32,7 @@ export interface EditarModalProps {
   contato: {
     id?: string;
   };
+  id:string
 }
 
 export interface IModalProps {
