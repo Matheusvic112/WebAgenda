@@ -103,9 +103,7 @@ export const Dashboard = () => {
               <Heading size="md">Olá, {user.nome_completo}!</Heading>
               <Box>
                 <p>E-mail: {user.email}</p>
-                <p>Telefone: {user.telefone}</p>
-                <Button onClick={() => handleOpenEditModal(user)}>Editar</Button>
-          
+                <p>Telefone: {user.telefone}</p>          
               </Box>
               <Contatos />
             </Flex>
